@@ -1,0 +1,13 @@
+[package]
+name = "editify"
+version = "0.0.1"
+edition = "2021"
+
+[[bin]]
+name = "macos"
+path = "src/main.rs"
+
+[dependencies]
+cocoa = "0.25.0"
+objc = "0.2.7"
+alacritty_terminal = "0.11.0"

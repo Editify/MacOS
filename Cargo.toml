@@ -1,12 +1,5 @@
-[package]
-name = "editify"
-version = "0.0.1"
-edition = "2021"
+[workspace]
+members = ["packages/core", "packages/lsp"]
+default-members = ["packages/core"]
 
-
-[target."cfg(target_os = \"macos\")".dependencies]
-   cocoa = "0.25.0"
-   objc = "0.2.7"
-
-[dependencies]
-objc = "0.2.7"
+resolver = "2"
