@@ -1,5 +1,6 @@
 [package]
 name = "editify"
+description = "A Stable Editor"
 version = "0.0.1"
 edition = "2021"
 
@@ -7,5 +8,10 @@ edition = "2021"
 name = "editify"
 path = "src/main.rs"
 
-[dependencies]
-cacao = "0.3.2"
+[target.'cfg(target_os = "macos")'.dependencies]
+objc = "*"
+cocoa = "*"
+
+
+[target.'cfg(target_os = "windows")'.dependencies]
+windows-sys = "0.52.0"
