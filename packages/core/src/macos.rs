@@ -1,75 +1,47 @@
-extern crate cocoa;
+//! This example showcases setting up a basic application and window.
 
-use cocoa::base::{id, nil, selector, NO};
-use cocoa::appkit::NSWindow;
-use cocoa::foundation::{NSAutoreleasePool, NSPoint, NSProcessInfo, NSRect, NSSize, NSString};
+use cacao::appkit::menu::{Menu, MenuItem};
+use cacao::appkit::window::Window;
+use cacao::appkit::{App, AppDelegate};
 
+#[derive(Default)]
+struct BasicApp {
+    window: Window
+}
 
-use cocoa::appkit::{
-    NSApp, NSApplication, NSApplicationActivateIgnoringOtherApps,
-    NSApplicationActivationPolicyRegular, NSBackingStoreBuffered, NSMenu, NSMenuItem,
-    NSRunningApplication, NSWindowStyleMask,
-};
+impl AppDelegate for BasicApp {
+    fn did_finish_launching(&self) {
+        App::set_menu(vec![
+            Menu::new("", vec![
+                MenuItem::Services,
+                MenuItem::Separator,
+                MenuItem::Hide,
+                MenuItem::HideOthers,
+                MenuItem::ShowAll,
+                MenuItem::Separator,
+                MenuItem::Quit,
+            ]),
+            Menu::new("File", vec![MenuItem::CloseWindow]),
+            Menu::new("Window", vec![
+                MenuItem::Minimize,
+                MenuItem::Zoom,
+                MenuItem::Separator,
+                MenuItem::new("Bring All to Front"),
+            ]),
+        ]);
 
+        App::activate();
 
+        self.window.set_minimum_content_size(400., 400.);
+        self.window.set_title("Editify");
+        self.window.show();
+    }
 
-pub fn main() {
-    unsafe {
-        let _pool = NSAutoreleasePool::new(nil);
-
-        let app = NSApp();
-        app.setActivationPolicy_(NSApplicationActivationPolicyRegular);
-
-        add_menu(&app);
-        add_window();
-        focus_app();
-        app.run();
+    fn should_terminate_after_last_window_closed(&self) -> bool {
+        true
     }
 }
 
-/// Focus the app onscreen when launched
-unsafe fn focus_app() {
-    let current_app = NSRunningApplication::currentApplication(nil);
-    current_app.activateWithOptions_(NSApplicationActivateIgnoringOtherApps);
-}
-
-/// Add a window to the application instance
-unsafe fn add_window() {
-    let window = NSWindow::alloc(nil)
-        .initWithContentRect_styleMask_backing_defer_(
-            NSRect::new(NSPoint::new(0., 0.), NSSize::new(200., 200.)),
-            NSWindowStyleMask::NSTitledWindowMask
-                | NSWindowStyleMask::NSClosableWindowMask
-                | NSWindowStyleMask::NSMiniaturizableWindowMask
-                | NSWindowStyleMask::NSResizableWindowMask,
-            NSBackingStoreBuffered,
-            NO,
-        )
-        .autorelease();
-    window.center();
-    let title = NSString::alloc(nil).init_str("Editify");
-    window.setTitle_(title);
-    window.makeKeyAndOrderFront_(nil);
-}
-
-/// Add a menu to an application instance
-unsafe fn add_menu(app: &id) {
-    // create Menu Bar
-    let menubar = NSMenu::new(nil).autorelease();
-    let app_menu_item = NSMenuItem::new(nil).autorelease();
-    menubar.addItem_(app_menu_item);
-    app.setMainMenu_(menubar);
-
-    // create Application menu
-    let app_menu = NSMenu::new(nil).autorelease();
-    let quit_prefix = NSString::alloc(nil).init_str("Quit ");
-    let quit_title =
-        quit_prefix.stringByAppendingString_(NSProcessInfo::processInfo(nil).processName());
-    let quit_action = selector("terminate:");
-    let quit_key = NSString::alloc(nil).init_str("q");
-    let quit_item = NSMenuItem::alloc(nil)
-        .initWithTitle_action_keyEquivalent_(quit_title, quit_action, quit_key)
-        .autorelease();
-    app_menu.addItem_(quit_item);
-    app_menu_item.setSubmenu_(app_menu);
+pub fn main() {
+    App::new("com.editify", BasicApp::default()).run();
 }
