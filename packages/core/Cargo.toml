@@ -7,9 +7,7 @@ edition = "2021"
 [[bin]]
 name = "editify"
 path = "src/main.rs"
-[target.'cfg(target_os = "macos")'.dependencies]
-objc = "*"
-cocoa = "*"
+
 
 [target.'cfg(target_os = "macos")'.dependencies]
 objc = "*"
