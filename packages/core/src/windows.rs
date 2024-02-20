@@ -92,7 +92,7 @@ unsafe extern "system" fn window_proc(
         WM_MOUSEMOVE => {
             let x = LOWORD(lparam as DWORD) as INT32;
             let y = HIWORD(lparam as DWORD) as INT32;
-            // println!("x {} y {}", x, y);
+            println!("x {} y {}", x, y);
             handle_mouse_move(x, y);
             0
         }

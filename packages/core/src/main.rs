@@ -9,5 +9,5 @@ fn main() {
     #[cfg(target_os = "macos")]
     macos::main();
     #[cfg(target_os = "windows")]
-    window::main();
+    windows::main();
 }
