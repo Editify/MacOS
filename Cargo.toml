@@ -1,5 +1,5 @@
 [workspace]
-members = ["packages/core", "packages/lsp"]
+members = ["packages/core", "packages/lsp", "packages/winapi-gui", "packages/discord"]
 default-members = ["packages/core"]
 
 resolver = "2"
