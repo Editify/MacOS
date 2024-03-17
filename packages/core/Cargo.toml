@@ -7,13 +7,10 @@ edition = "2021"
 [[bin]]
 name = "editify"
 path = "src/main.rs"
-[target.'cfg(target_os = "macos")'.dependencies]
-objc = "*"
-cocoa = "*"
 
-[target.'cfg(target_os = "windows")'.dependencies]
-winapi = { version = "0.3", features = ["winuser", "winbase", "handleapi", "processthreadsapi", "synchapi"] }
-winapi_gui = { path = "../winapi-gui" }
+
+
 
 [dependencies]
 discord = { path = "../discord" }
+cli = { path = "../cli"}

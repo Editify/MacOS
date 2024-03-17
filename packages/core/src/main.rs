@@ -1,13 +1,19 @@
-#[cfg(target_os = "macos")]
-mod macos;
-#[cfg(target_os = "windows")]
-mod windows;
+
+use cli::CLI;
+use discord::connect as discordConnect;
+
 
 fn main() {
-    discord::connect();
+    discordConnect();
 
-    #[cfg(target_os = "macos")]
-    macos::main();
-    #[cfg(target_os = "windows")]
-    windows::main();
+    let cli = CLI::from_env();
+
+    match cli.terminal {
+        Some(true) => println!("Terminal option is true."),
+        _ => ()
+    }
+
+    match cli.sub {
+        _ => eprintln!("Undefined")
+    }
 }
