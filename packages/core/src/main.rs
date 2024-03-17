@@ -16,4 +16,7 @@ fn main() {
     match cli.sub {
         _ => eprintln!("Undefined")
     }
+
+    //Color for Window Background:  rgb(20, 23, 23)
+    // TODO: WINDOW!
 }
