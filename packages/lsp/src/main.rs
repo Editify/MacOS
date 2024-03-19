@@ -1,17 +1,11 @@
-mod git;
+use std::env;
 
-use git::download_repo;
+
 fn main() {
-    lsp::Server::new("rust-analyzer");
+    let lsp = lsp::Server::new("rs");
 
-    match download_repo("eveeifyeve/cli", Some("~/projects/editify/editify")) {
-        Ok(result) => {
-            println!("{:?}", result);
-            // You can use the result here
-        },
-        Err(e) => {
-            println!("Error: {}", e);
-            // Handle the error case here
-        }
-    }
+
+    let current_dir = env::current_dir().expect("Failed to get current directory");
+    let current_dir_str = current_dir.to_str().expect("Failed to convert path to string");
+    lsp.start_lsp("/Users/eveeify/Projects/Editify/Editify/packages/lsp").is_ok();
 }
