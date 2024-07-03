@@ -2,6 +2,5 @@
 name = "discord"
 edition = "2021"
 
-
 [dependencies]
-discord-rpc-client = "0.4.0"
+discord-rich-presence = "0.2.4"
