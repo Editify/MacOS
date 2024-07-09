@@ -1,22 +1,18 @@
-
 use cli::CLI;
 use discord::connect as discordConnect;
 
-
 fn main() {
-    discordConnect();
+    let _ = discordConnect();
 
     let cli = CLI::from_env();
 
-    match cli.terminal {
-        Some(true) => println!("Terminal option is true."),
-        _ => ()
-    }
+    let _ = match cli {
+        _terminal => {
+            cli::terminal().expect("Terminal failed");
+            Ok::<(), Box<dyn std::error::Error>>(())
+        }
+        _ => unreachable!(),
+    };
 
-    match cli.sub {
-        _ => eprintln!("Undefined")
-    }
-
-    //Color for Window Background:  rgb(20, 23, 23)
     // TODO: WINDOW!
 }

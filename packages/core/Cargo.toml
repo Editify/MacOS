@@ -9,8 +9,6 @@ name = "editify"
 path = "src/main.rs"
 
 
-
-
 [dependencies]
 discord = { path = "../discord" }
-cli = { path = "../cli"}
+cli = { path = "../cli" }
