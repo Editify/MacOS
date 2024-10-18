@@ -27,15 +27,11 @@
         };
 
         devShells.default = with pkgs; let 
-        inherit (pkgs.darwin.apple_sdk.frameworks); # Required Frameworks needed for macOS
-
-        # Rust Toolchain
         toolchain = pkgs.rust-bin.stable.latest.default.override {
           extensions = ["rust-src"];
           targets = ["x86_64-unknown-linux-gnu"];
         };
 
-        # toolchain = rust-bin.fromRustupToolchainFile ./toolchain.toml; # Alternatively
         in mkShell
         {
           nativeBuildInputs = with pkgs; [
@@ -43,9 +39,9 @@
           ] ++ lib.optionals stdenv.isLinux [
             openssl
             # Additional Dependencies here for Linux.
-          ] ++ lib.optionals stdenv.isDarwin [
-            # Frameworks here
-          ];
+          ] ++ lib.optionals stdenv.isDarwin (with pkgs; [
+            darwin.apple_sdk.Frameworks.Metal
+          ]);
         };
       };
     };
