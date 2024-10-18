@@ -36,8 +36,8 @@
         {
           nativeBuildInputs = with pkgs; [
             toolchain
+						openssl
           ] ++ lib.optionals stdenv.isLinux [
-            openssl
             # Additional Dependencies here for Linux.
           ] ++ lib.optionals stdenv.isDarwin (with pkgs; [
             darwin.apple_sdk.Frameworks.Metal
