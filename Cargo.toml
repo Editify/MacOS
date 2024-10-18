@@ -1,0 +1,7 @@
+[workspaces]
+members = ["crates/core"]
+
+[[bin]]
+name = "editify"
+path = "crates/core"
+
