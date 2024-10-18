@@ -1,7 +1,3 @@
-[workspaces]
+[workspace]
 members = ["crates/core"]
-
-[[bin]]
-name = "editify"
-path = "crates/core"
-
+default = ["crates/core"]
