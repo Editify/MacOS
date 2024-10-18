@@ -1,6 +1,8 @@
 /target
 ./result
 
+# crate ignores
+/crates/*/Cargo.lock
 
 # direnv
 .direnv
